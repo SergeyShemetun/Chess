@@ -30,7 +30,11 @@ public static Tile createTile(final int tileCoordinate,final Piece piece){
     public abstract boolean isOccupied();
         public abstract Piece getPiece();
 
-        public static final class EmptyTile extends Tile{
+    public int getTileCoordinate() {
+        return this.tileCoordinate;
+    }
+
+    public static final class EmptyTile extends Tile{
 
             private EmptyTile(final int coordinate){
                 super(coordinate);

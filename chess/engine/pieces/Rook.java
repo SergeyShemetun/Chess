@@ -13,7 +13,7 @@ import java.util.List;
 public class Rook extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1,1,8};
     public Rook(int piecePosition, Alliance pieceAlliance) {
-        super(pieceType.ROOK, piecePosition, pieceAlliance);
+        super(PieceType.ROOK, piecePosition, pieceAlliance);
     }
 
     @Override
@@ -52,6 +52,9 @@ public class Rook extends Piece{
 
     private static boolean isEigthColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.FIRST_COLLOMN[currentPosition] && (candidateOffset == 1);
+    }
+    public Rook movePiece (final Move move) {
+        return new Rook(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
     }
     @Override
     public String toString(){

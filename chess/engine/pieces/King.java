@@ -13,7 +13,7 @@ import java.util.List;
 public class King extends Piece{
     private final static int[] CANDIDATE_MOVE_COORDINATES={-9,-8,-7,-1,1,7,9};
     public King(int piecePosition, Alliance pieceAlliance) {
-        super(pieceType.KING, piecePosition, pieceAlliance);
+        super(PieceType.KING, piecePosition, pieceAlliance);
     }
 
     @Override
@@ -49,6 +49,9 @@ public class King extends Piece{
     private static boolean ifEigthColomnExclusion(final  int currentPosition, final  int  candidateOffset){
         return BoardUtils.EIGTH_COLLOMN[currentPosition] &&((candidateOffset==-7)||(candidateOffset==1)||(candidateOffset==9));
 
+    }
+    public King movePiece (final Move move) {
+        return new King(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
     }
     @Override
     public String toString(){

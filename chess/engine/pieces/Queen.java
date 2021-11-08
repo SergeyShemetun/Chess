@@ -14,7 +14,7 @@ public class Queen extends Piece{
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -8, -7, -1, 1, 7, 8, 9};
 
     public Queen(int piecePosition, Alliance pieceAlliance) {
-        super(pieceType.QUEEN, piecePosition, pieceAlliance);
+        super(PieceType.QUEEN, piecePosition, pieceAlliance);
     }
 
     @Override
@@ -53,6 +53,10 @@ public class Queen extends Piece{
 
     private static boolean isEigthColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.FIRST_COLLOMN[currentPosition] && (candidateOffset == -7 || candidateOffset == -9||candidateOffset==1);
+    }
+
+    public Queen movePiece (final Move move) {
+        return new Queen(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
     }
     @Override
     public String toString(){

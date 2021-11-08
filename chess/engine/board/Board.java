@@ -14,6 +14,7 @@ public class Board {
     private final Collection<Piece> blackPieces;
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
+    private final Player currentPlayer;
 
     public Player whitePlayer(){
 return this.whitePlayer;
@@ -32,8 +33,13 @@ return this.whitePlayer;
         final Collection<Move> blackStandardLegalMoves=calculateLegalMoves(this.blackPieces);
         this.whitePlayer=new WhitePlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
         this.blackPlayer=new BlackPlayer(this,whiteStandardLegalMoves,blackStandardLegalMoves);
+        this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
 
 
+    }
+
+    public Player currentPlayer(){
+        return this.currentPlayer;
     }
 
     @Override
@@ -126,16 +132,19 @@ return this.whitePlayer;
         builder.setPiece(new Bishop(61,Alliance.WHITE));
         builder.setPiece(new Knight(62,Alliance.WHITE));
         builder.setPiece(new Rook(63,Alliance.WHITE));
-
-
+        //Do not forget that white moves first
+        builder.setMoveMaker(Alliance.WHITE);
 
 
         return builder.build();
     }
 
+
     public static class Builder{
         Map<Integer, Piece> boardConfig;
         Alliance nextMoveMaker;
+        Pawn enPassantPawn;
+        Move transitionMove;
 
         public Builder(){
         this.boardConfig=new HashMap<>();
@@ -149,10 +158,19 @@ return this.whitePlayer;
         public Builder setMoveMaker(final Alliance nextMoveMaker){
             this.nextMoveMaker=nextMoveMaker;
             return this;
+
         }
 
         public Board build(){
             return new Board(this);
+        }
+
+        public void setEnPassantPawn(Pawn enPassantPawn) {
+            this.enPassantPawn=enPassantPawn;
+        }
+        public Builder setMoveTransition(final Move transitionMove) {
+            this.transitionMove = transitionMove;
+            return this;
         }
     }
 
